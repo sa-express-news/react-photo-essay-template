@@ -1,0 +1,12 @@
+img.full-page-photo {
+  position: fixed;
+  max-height: 100%;
+  max-width: 100%;
+  margin: 0;
+  top: 0;
+  left: 0;
+
+  &.hide {
+  	display: none;
+  }
+}
