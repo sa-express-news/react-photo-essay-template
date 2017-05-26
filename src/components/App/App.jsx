@@ -14,6 +14,8 @@ import './App.scss';
 import store from '../../store';
 import actions from '../../actions';
 
+let fadeTimeout = null;
+
 
 class App extends Component {
   constructor(props) {
@@ -21,16 +23,28 @@ class App extends Component {
     this.state = {
       isSmallScreen: true,
       currPhotoIdx: 0,
+      isCaptionOpen: false,
+      isEssayVisible: true,
     };
-    this.setIsMobile   = this.setIsMobile.bind(this);
-    this.textIsVisible = this.textIsVisible.bind(this);
-    this.isCurrPhoto   = this.isCurrPhoto.bind(this);
+    this.setIsMobile          = this.setIsMobile.bind(this);
+    this.textIsVisible        = this.textIsVisible.bind(this);
+    this.isCurrPhoto          = this.isCurrPhoto.bind(this);
+    this.setGlobalClickHandle = this.setGlobalClickHandle.bind(this);
+    this.openCaption          = this.openCaption.bind(this);
+    this.closeCaption         = this.closeCaption.bind(this);
+    this.onMove               = this.onMove.bind(this);
+    this.setFadeTimeout       = this.setFadeTimeout.bind(this);
+    this.hideEssay            = this.hideEssay.bind(this);
+    this.showEssay            = this.showEssay.bind(this);
+    this.getEssayClass        = this.getEssayClass.bind(this);
   }
 
   componentDidMount() {
     this.getData();
     this.setIsMobile();
     window.addEventListener("resize", this.setIsMobile);
+    window.addEventListener("mousemove", this.onMove);
+    window.addEventListener("scroll", this.onMove);
   }
 
   componentWillUnmount() {
@@ -58,13 +72,57 @@ class App extends Component {
     return idx === this.state.currPhotoIdx;
   }
 
+  setGlobalClickHandle() {
+    const { isCaptionOpen } = this.state;
+    return isCaptionOpen ? this.closeCaption : null;
+  }
+
+  closeCaption() {
+    this.setState({ isCaptionOpen: false });
+  }
+
+  openCaption() {
+    this.setState({ isCaptionOpen: true });
+  }
+
+  onMove() {
+    this.handleClearTimeout();
+    this.setFadeTimeout();
+    if (!this.state.isEssayVisible) {
+      this.showEssay()
+    }
+  }
+
+  handleClearTimeout() {
+    window.clearTimeout(fadeTimeout);
+  }
+
+  setFadeTimeout() {
+    fadeTimeout = window.setTimeout(this.hideEssay, 1500);
+  }
+
+  showEssay() {
+    this.setState({ isEssayVisible: true });
+  }
+
+  hideEssay() {
+    this.setState({ isEssayVisible: false });
+  }
+
+  getEssayClass() {
+    const { isEssayVisible, isCaptionOpen } = this.state;
+    return isEssayVisible || isCaptionOpen ? 'essay' : 'essay hide';
+  }
+
   render() {
     const { photos } = this.props;
-    const { isSmallScreen } = this.state;
+    const { isSmallScreen, isCaptionOpen } = this.state;
 
     return (
       <div className="App">
-        <Article>
+        <Article
+          onClick={this.setGlobalClickHandle()}
+        >
           <NavBar className="NavBar" isSmallScreen={isSmallScreen} />
           <Section
             pad="none"
@@ -76,8 +134,15 @@ class App extends Component {
           >
             <Photos photos={photos} isCurrPhoto={this.isCurrPhoto} />
             <Splash photo={photos[0]} textIsVisible={this.textIsVisible} />
-            <Essay photos={photos.slice(1)} textIsVisible={this.textIsVisible} />
+            <Essay 
+              photos={photos.slice(1)}
+              textIsVisible={this.textIsVisible}
+              isCaptionOpen={isCaptionOpen}
+              openCaption={this.openCaption}
+              getEssayClass={this.getEssayClass}
+            />
           </Section>
+          <Section colorIndex="grey-1" full="horizontal" />
         </Article>
       </div>
     );

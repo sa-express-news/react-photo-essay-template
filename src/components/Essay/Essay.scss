@@ -1,3 +1,26 @@
-.text-box .the-caption { 
-  visibility: hidden;
+.essay {
+  visibility: visible;
+
+  &.hide {
+    visibility: hidden;
+  }
+
+  .text-background-opaque {
+    background-color: rgba(0, 0, 0, 0.8);
+  }
+
+  .text-box { 
+    h2.title {
+      font-size: 2rem;
+    }
+
+    h4.caption {
+      font-size: 22px;
+    }
+
+    h4.read-more {
+      cursor: pointer;
+      color: rgba(255, 25, 57, 1);
+    }
+  }
 }
