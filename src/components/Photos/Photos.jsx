@@ -7,6 +7,12 @@ import Animate from 'grommet/components/Animate';
 
 import './Photos.scss';
 
+const buildUrl = url => {
+	if (url) {
+		return require(`../../images/${url}`);
+	}
+}
+
 const Photos = props => {
 	return (
 		<div>
@@ -15,7 +21,7 @@ const Photos = props => {
 					{props.isCurrPhoto(idx) && (
 						<Animate enter={{'animation': 'fade', 'duration': 1500, 'delay': 0}}>
 							<Image
-							  src={photo.url}
+							  src={buildUrl(photo.url)}
 							  fit="contain"
 							  full={true}
 							  className="full-page-photo"
@@ -24,7 +30,7 @@ const Photos = props => {
 					)}
 					{!props.isCurrPhoto(idx) && (
 						<Image
-						  src={photo.url}
+						  src={buildUrl(photo.url)}
 						  fit="contain"
 						  full={true}
 						  className="full-page-photo hide"

@@ -20,7 +20,7 @@ const buildSocialButton = (href, icon) => {
   );
 };
 
-const storyLink = 'http://www.expressnews.com/transgender-life-in-transition/';
+const storyLink = 'http://www.expressnews.com/scott-deem-firefighter-san-antonio-photo-essay/';
 
 const buildAllSocialButtons = () => (
   <div>

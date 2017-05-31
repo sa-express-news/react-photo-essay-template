@@ -53,7 +53,6 @@ const Essay = props => {
               key={idx}
               basis="2/3"
             >
-              <ReactVisibilitySensor onChange={props.textIsVisible.bind(this, idx + 1)} />
               <Card 
                 heading={addHeading(photo.title, 'h2', 'title', null)}
                 description={addHeading(view.descriptionText, 'h4', view.descriptionClass, view.descriptionHandle)}
@@ -61,7 +60,9 @@ const Essay = props => {
                 align="start"
                 pad={{ horizontal: 'medium', vertical: 'none' }}
                 basis="1/3"
-              />
+              >
+                <ReactVisibilitySensor onChange={props.textIsVisible.bind(this, idx + 1)} />
+              </Card>
               <Box basis="2/3" />
             </Box>
           </Box>

@@ -45,6 +45,7 @@ class App extends Component {
     window.addEventListener("resize", this.setIsMobile);
     window.addEventListener("mousemove", this.onMove);
     window.addEventListener("scroll", this.onMove);
+    window.addEventListener("touchmove", this.onMove);
   }
 
   componentWillUnmount() {

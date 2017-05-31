@@ -5,8 +5,12 @@
     visibility: hidden;
   }
 
+  .text-background {
+    background: transparent;
+  }
+
   .text-background-opaque {
-    background-color: rgba(0, 0, 0, 0.8);
+    background: rgba(0, 0, 0, 0.8);
   }
 
   .text-box { 
