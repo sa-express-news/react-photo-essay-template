@@ -10,11 +10,13 @@ import Card from 'grommet/components/Card';
 
 import './Splash.scss';
 
-const space = String.fromCharCode(160);
-
 const addHeading = title => (<Headline margin="none">{title}</Headline>);
 
-const buildLabel = () => `Photos by John${space}Davenport, Ray${space}Whitehouse, Kin${space}Man${space}Hui, Billy${space}Calzada & Bob${space}Owen`;
+const buildLabel = credits => {
+  return _.reduce(credits, (str, credit) => {
+    return str + ' ' + credit.replace(/ /g, '\xa0');
+  }, 'Photos by');
+};
 
 const Splash = props => {
   return (
@@ -28,7 +30,7 @@ const Splash = props => {
       >
         <ReactVisibilitySensor onChange={props.textIsVisible.bind(this, 0)} />
         <Card 
-          label={buildLabel()}
+          label={buildLabel(props.credits)}
           heading={addHeading(props.photo.title)}
           description={props.photo.caption}
           justify="end"

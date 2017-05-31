@@ -1,18 +1,13 @@
-import * as types from '../actions/action-types';
+import { combineReducers } from 'redux';
 
-const defaultPhoto = {
-	url: '',
-	title: '',
-	caption: '',
-};
+// Reducers
+import photos from './photo-reducer';
+import credits from './credit-reducer';
 
-const photos = (state = [defaultPhoto, defaultPhoto], action) => {
-  switch(action.type) {
-    case types.GET_PHOTOS:
-      return action.photos;
-    default:
-      return state;
-  }
-}
+// Combine Reducers
+const reducers = combineReducers({
+    photos,
+    credits,
+});
 
-export default photos;
+export default reducers;

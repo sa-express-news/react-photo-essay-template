@@ -54,6 +54,7 @@ class App extends Component {
 
   getData() {
     store.dispatch(actions.photo.getPhotos());
+    store.dispatch(actions.credit.getCredits());
   }
 
   setIsMobile() {
@@ -116,7 +117,7 @@ class App extends Component {
   }
 
   render() {
-    const { photos } = this.props;
+    const { photos, credits } = this.props;
     const { isSmallScreen, isCaptionOpen } = this.state;
 
     return (
@@ -134,7 +135,11 @@ class App extends Component {
             className="Essay"
           >
             <Photos photos={photos} isCurrPhoto={this.isCurrPhoto} />
-            <Splash photo={photos[0]} textIsVisible={this.textIsVisible} />
+            <Splash 
+              credits={credits}
+              photo={photos[0]}
+              textIsVisible={this.textIsVisible}
+            />
             <Essay 
               photos={photos.slice(1)}
               textIsVisible={this.textIsVisible}
@@ -150,7 +155,10 @@ class App extends Component {
   }
 }
 
-const mapStateToProps = photos => {
-  return { photos }
+const mapStateToProps = store => {
+  return { 
+    photos: store.photos,
+    credits: store.credits,
+  }
 };
 export default connect(mapStateToProps)(App);

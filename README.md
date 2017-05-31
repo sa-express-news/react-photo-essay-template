@@ -16,6 +16,8 @@ Replace the placeholder images in the `images` directory with your own images.
 
 Open `data/photos.json` and update the image url paths (they point to the `images` directory), titles and captions.
 
+Open `data/credits.json` and update the photographers' names.
+
 You'll next want to run `npm run start`.
 
 Currently there is a bug with a Grommet dependency and Sass-Loader that, until new versions are released, will likely throw an error on first load. Here's how to fix it:

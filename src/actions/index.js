@@ -1,13 +1,7 @@
-import * as types from './action-types';
-import photos from '../data/photos.json';
+import credit from './credit-actions';
+import photo from './photo-actions';
 
-const getPhotos = () => {
-	return {
-    type: types.GET_PHOTOS,
-    photos,
-  };
+export default { 
+	photo,
+	credit,
 };
-
-const photo = { getPhotos };
-
-export default { photo };
