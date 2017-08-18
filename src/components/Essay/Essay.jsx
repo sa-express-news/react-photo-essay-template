@@ -22,11 +22,11 @@ const addHeading = (text, tag, className, onClickHandle) => {
   );
 };
 
-const setViewState = (isCaptionOpen, openCaption, photo) => {
+const setViewState = (isCaptionOpen, openCaption, isCurrPhoto, photo) => {
   return {
     wrapClass: isCaptionOpen ? 'text-background-opaque' : 'text-background',
-    descriptionText: isCaptionOpen ? photo.caption : 'Read More',
-    descriptionClass: isCaptionOpen ? 'caption' : 'read-more',
+    descriptionText: isCaptionOpen && isCurrPhoto ? photo.caption : 'Read More',
+    descriptionClass: isCaptionOpen && isCurrPhoto ? 'caption' : 'read-more',
     descriptionHandle: isCaptionOpen ? null : openCaption,
   };
 };
@@ -35,7 +35,7 @@ const Essay = props => {
   return (
     <div className={props.getEssayClass()}>
       {_.map(props.photos, (photo, idx) => {
-        const view = setViewState(props.isCaptionOpen, props.openCaption, photo);
+        const view = setViewState(props.isCaptionOpen, props.openCaption, props.isCurrPhoto(idx + 1), photo);
         return (
           <Box 
             full={true} 
@@ -77,7 +77,8 @@ Essay.propTypes = {
     url: PropTypes.string.isRequired,
     title: PropTypes.string.isRequired,
     caption: PropTypes.string.isRequired,
-  }).isRequired).isRequired
+  }).isRequired).isRequired,
+  isCurrPhoto: PropTypes.func.isRequired,
 };
 
 export default Essay;

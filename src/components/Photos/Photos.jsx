@@ -15,7 +15,7 @@ const buildUrl = url => {
 
 const Photos = props => {
 	return (
-		<div>
+		<div className="photos">
 			{_.map(props.photos, (photo, idx) => (
 				<div key={idx}>
 					{props.isCurrPhoto(idx) && (
@@ -24,7 +24,7 @@ const Photos = props => {
 							  src={buildUrl(photo.url)}
 							  fit="contain"
 							  full={true}
-							  className="full-page-photo"
+							  className="full-page-photo show"
 							/>
 						</Animate>
 					)}

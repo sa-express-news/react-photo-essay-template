@@ -66,6 +66,7 @@ class App extends Component {
 
   textIsVisible(currPhotoIdx, isVisible) {
     if (isVisible && currPhotoIdx !== this.state.currPhotoIdx) {
+      this.closeCaption();
       this.setState({ currPhotoIdx });
     }
   }
@@ -146,6 +147,7 @@ class App extends Component {
               isCaptionOpen={isCaptionOpen}
               openCaption={this.openCaption}
               getEssayClass={this.getEssayClass}
+              isCurrPhoto={this.isCurrPhoto}
             />
           </Section>
           <Section colorIndex="grey-1" full="horizontal" />
