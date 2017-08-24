@@ -114,7 +114,7 @@ class App extends Component {
 
   getEssayClass() {
     const { isEssayVisible, isCaptionOpen } = this.state;
-    return isEssayVisible || isCaptionOpen ? 'essay' : 'essay hide';
+    return isEssayVisible || isCaptionOpen ? 'essay' : 'essay essay-is-hidden';
   }
 
   render() {

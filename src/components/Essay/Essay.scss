@@ -1,7 +1,11 @@
 .essay {
-  visibility: visible;
+  min-height: 100vh;
 
-  &.hide {
+  .chapter { 
+    visibility: visible;
+  }
+
+  &.essay-is-hidden .chapter {
     visibility: hidden;
   }
 

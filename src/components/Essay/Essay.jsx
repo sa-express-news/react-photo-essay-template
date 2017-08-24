@@ -24,8 +24,8 @@ const addHeading = (text, tag, className, onClickHandle) => {
 
 const setViewState = (isCaptionOpen, openCaption, isCurrPhoto, photo) => {
   return {
-    wrapClass: isCaptionOpen ? 'text-background-opaque' : 'text-background',
-    descriptionText: isCaptionOpen && isCurrPhoto ? photo.caption : 'Read More',
+    wrapClass: isCaptionOpen ? 'text-background-opaque chapter' : 'text-background chapter',
+    descriptionText: isCaptionOpen && isCurrPhoto ? photo.caption : 'View Caption',
     descriptionClass: isCaptionOpen && isCurrPhoto ? 'caption' : 'read-more',
     descriptionHandle: isCaptionOpen ? null : openCaption,
   };
@@ -44,26 +44,25 @@ const Essay = props => {
             pad="none"
             key={idx}
           >
-            <Box basis="1/3" />
+            <Box basis="full" />
             <Box
               direction="row"
-              justify="start"
-              align="center"
+              justify="end"
+              align="end"
               className="text-box"
               key={idx}
-              basis="2/3"
+              basis="full"
             >
               <Card 
                 heading={addHeading(photo.title, 'h2', 'title', null)}
                 description={addHeading(view.descriptionText, 'h4', view.descriptionClass, view.descriptionHandle)}
                 justify="start"
-                align="start"
+                align="end"
                 pad={{ horizontal: 'medium', vertical: 'none' }}
                 basis="1/3"
               >
                 <ReactVisibilitySensor onChange={props.textIsVisible.bind(this, idx + 1)} />
               </Card>
-              <Box basis="2/3" />
             </Box>
           </Box>
         );
@@ -75,7 +74,7 @@ const Essay = props => {
 Essay.propTypes = {
   photos: PropTypes.arrayOf(PropTypes.shape({
     url: PropTypes.string.isRequired,
-    title: PropTypes.string.isRequired,
+    title: PropTypes.string,
     caption: PropTypes.string.isRequired,
   }).isRequired).isRequired,
   isCurrPhoto: PropTypes.func.isRequired,
