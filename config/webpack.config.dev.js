@@ -7,6 +7,7 @@ var CaseSensitivePathsPlugin = require('case-sensitive-paths-webpack-plugin');
 var InterpolateHtmlPlugin = require('react-dev-utils/InterpolateHtmlPlugin');
 var WatchMissingNodeModulesPlugin = require('react-dev-utils/WatchMissingNodeModulesPlugin');
 var getClientEnvironment = require('./env');
+var path = require('path');
 var paths = require('./paths');
 
 
@@ -125,7 +126,16 @@ module.exports = {
       // Sass, son
       {  
         test: /\.scss$/,
-        loader: 'style!css!sass?outputStyle=compressed'
+        loader: 'style!css!sass?outputStyle=expanded&' +
+        'includePaths[]=' +
+        (encodeURIComponent(
+          path.resolve(process.cwd(), './node_modules')
+        )) +
+        '&includePaths[]=' +
+        (encodeURIComponent(
+            path.resolve( process.cwd(),
+              './node_modules/grommet/node_modules'))
+        )
       },
       // Process JS with Babel.
       {

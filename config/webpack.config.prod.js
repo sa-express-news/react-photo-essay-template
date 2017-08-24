@@ -6,6 +6,7 @@ var HtmlWebpackPlugin = require('html-webpack-plugin');
 var ExtractTextPlugin = require('extract-text-webpack-plugin');
 var ManifestPlugin = require('webpack-manifest-plugin');
 var InterpolateHtmlPlugin = require('react-dev-utils/InterpolateHtmlPlugin');
+var path = require('path');
 var paths = require('./paths');
 var getClientEnvironment = require('./env');
 
@@ -53,6 +54,7 @@ module.exports = {
   devtool: 'source-map',
   // In production, we only want to load the polyfills and the app code.
   entry: [
+    'babel-polyfill',
     require.resolve('./polyfills'),
     paths.appIndexJs
   ],
@@ -151,7 +153,16 @@ module.exports = {
       // Sass, son
       {  
         test: /\.scss$/,
-        loader: 'style!css!sass?outputStyle=compressed'
+        loader: 'style!css!sass?outputStyle=compressed&' +
+        'includePaths[]=' +
+        (encodeURIComponent(
+          path.resolve(process.cwd(), './node_modules')
+        )) +
+        '&includePaths[]=' +
+        (encodeURIComponent(
+            path.resolve( process.cwd(),
+              './node_modules/grommet/node_modules'))
+        )
       },
       // JSON is not enabled by default in Webpack but both Node and Browserify
       // allow it implicitly so we also enable it.
