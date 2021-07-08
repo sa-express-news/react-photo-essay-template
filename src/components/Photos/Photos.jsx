@@ -7,11 +7,14 @@ import Animate from 'grommet/components/Animate';
 
 import './Photos.scss';
 
-const buildUrl = url => {
-	if (url) {
-		return require(`../../images/${url}`);
-	}
-}
+//Use this if you need to load photos from the file system.
+//But try not to - it eats up our S3 budget.
+
+// const buildUrl = url => {
+// 	if (url) {
+// 		return require(`../../images/${url}`);
+// 	}
+// }
 
 const Photos = props => {
 	return (
@@ -21,7 +24,7 @@ const Photos = props => {
 					{props.isCurrPhoto(idx) && (
 						<Animate enter={{'animation': 'fade', 'duration': 1500, 'delay': 0}}>
 							<Image
-							  src={buildUrl(photo.url)}
+							  src={photo.url}
 							  fit="contain"
 							  full={true}
 							  className="full-page-photo show"
@@ -30,7 +33,7 @@ const Photos = props => {
 					)}
 					{!props.isCurrPhoto(idx) && (
 						<Image
-						  src={buildUrl(photo.url)}
+						  src={photo.url}
 						  fit="contain"
 						  full={true}
 						  className="full-page-photo hide"
